@@ -1,0 +1,78 @@
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.form-control {
+  border-color: #ced4da;
+}
+
+.table .thead-light th {
+  background-color: #e9ecef;
+}
+
+.bg-cover {
+  background-size: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .bg-cover {
+    background-position-y: -100px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .bg-cover {
+    background-position-y: -200px;
+  }
+}
+
+.form-group.large {
+  margin-bottom: 2rem;
+}
+
+.custom-select {
+  border: 1px solid #ced4da;
+}
+
+.custom-multiselect .selected-list .c-btn {
+  padding: 13px 20px;
+  height: 55px;
+  font-size: 1.0625rem;
+  border-radius: 0.375rem;
+  box-shadow: none;
+  border: 1px solid #ced4da;
+}
+
+.custom-multiselect .selected-list .c-angle-down,
+.custom-multiselect .selected-list .c-angle-up {
+  top: 42%;
+  right: 1.25rem;
+}
+
+.custom-multiselect .c-remove.clear-all {
+  display: none;
+}
+
+.was-validated .custom-multiselect.ng-invalid .c-btn {
+  border-color: #df4759;
+}
+
+.was-validated .custom-multiselect.ng-valid .c-btn {
+  border-color: #42ba96;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.list-slim {
+  padding-inline-start: 20px;
+}
+
+.was-validated ckeditor.ng-invalid .ck.ck-editor {
+  border: 1px solid #df4759;
+}
+
+.was-validated ckeditor.ng-valid .ck.ck-editor {
+  border: 1px solid #42ba96;
+}
