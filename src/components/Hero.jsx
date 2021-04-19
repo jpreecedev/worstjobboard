@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import backgroundImage from "../assets/img/covers/cover-3.jpg";
 
@@ -16,7 +17,7 @@ const Hero = () => (
             className="display-3 font-weight-bold text-white"
             id="welcomeHeadingSource"
           >
-            Outside IR35 jobs for <br />
+            Worst Job Board for <br />
             <span className="text-warning">Developers</span>
           </h1>
 
@@ -25,13 +26,12 @@ const Hero = () => (
             greatest companies in the world.
           </p>
 
-          <a
+          <Link
             className="navbar-btn btn btn-lg btn-warning lift ml-1"
-            href="/jobs"
+            to="/jobs"
           >
             Browse all developer jobs
-            <i-feather name="arrow-right" className="float-right"></i-feather>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

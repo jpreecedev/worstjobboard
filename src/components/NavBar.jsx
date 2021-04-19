@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => (
   <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
     <div className="container-fluid">
-      <a className="navbar-brand font-weight-boldest" href="/">
-        Outside IR35 Jobs
-      </a>
+      <Link className="navbar-brand font-weight-boldest" to="/">
+        Worst Job Board
+      </Link>
 
       <button
         className="navbar-toggler"
@@ -32,15 +33,18 @@ const NavBar = () => (
           <i className="fe fe-x"></i>
         </button>
 
-        <a
+        <Link
           className="navbar-btn btn btn-sm btn-primary-soft lift ml-auto ml-1"
-          href="/post-a-job"
+          to="/post-a-job"
         >
           Post a job
-        </a>
-        <a className="navbar-btn btn btn-sm btn-primary lift ml-1" href="/jobs">
+        </Link>
+        <Link
+          className="navbar-btn btn btn-sm btn-primary lift ml-1"
+          to="/jobs"
+        >
           See all jobs
-        </a>
+        </Link>
       </div>
     </div>
   </nav>

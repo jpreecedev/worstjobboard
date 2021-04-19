@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="container">
       <div className="row">
         <div className="col-12">
-          <h4>Outside IR35 Jobs</h4>
+          <h4>Worst Job Board</h4>
           <a
             href="https://jpreecedev.com"
             target="_blank"
