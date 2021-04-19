@@ -1,11 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useFirestoreConnect, isLoaded } from "react-redux-firebase";
 
 import illustration3 from "../assets/img/illustrations/illustration-3.png";
 
+const jobsQuery = {
+  collection: "jobs",
+  limitTo: 100,
+};
+
 const LatestPosts = () => {
-  const frontEndJobs = [];
-  const fullStackJobs = [];
+  useFirestoreConnect(() => [jobsQuery]);
+
+  const jobs = useSelector(({ firestore: { ordered } }) => ordered.jobs);
+
+  if (!isLoaded(jobs)) {
+    return (
+      <section className="pt-6 pt-md-8">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-10 col-lg-8 text-center">
+              <p>Loading...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const frontEndJobs = jobs.filter(({ category }) => category === "FrontEnd");
+  const fullStackJobs = jobs.filter(({ category }) => category === "FullStack");
 
   return (
     <section className="py-8 py-md-10 bg-gradient-light">
@@ -48,6 +73,7 @@ const LatestPosts = () => {
                   <div className="list-group list-group-flush">
                     {frontEndJobs.map((job) => (
                       <Link
+                        key={job.id}
                         className="list-group-item text-reset text-decoration-none cursor-pointer"
                         to={`/job/${job.id}`}
                       >
@@ -56,11 +82,8 @@ const LatestPosts = () => {
                         </span>
 
                         <span className="d-inline-block font-size-sm text-muted mb-0 d-block">
-                          {job.rateFrom} per
-                          {job.frequency}
-                        </span>
-                        <span className="d-inline-block font-size-sm text-muted mb-0 d-block">
-                          Rate unspecified
+                          &pound;{job.rateFrom} per{" "}
+                          {job.frequency.toLowerCase()}
                         </span>
 
                         <span className="font-size-sm text-muted mb-0 d-block">
@@ -97,6 +120,7 @@ const LatestPosts = () => {
                   <div className="list-group list-group-flush">
                     {fullStackJobs.map((job) => (
                       <Link
+                        key={job.id}
                         className="list-group-item text-reset text-decoration-none cursor-pointer"
                         to={`/job/${job.id}`}
                       >
@@ -108,19 +132,19 @@ const LatestPosts = () => {
                             <span>&lt; 1 year experience</span>
                           )}
                           {job.experienceRequired === "OneToTwo" && (
-                            <span>&lt; 1-2 years experience</span>
+                            <span>1-2 years experience</span>
                           )}
                           {job.experienceRequired === "TwoToThree" && (
-                            <span>&lt; 2-3 years experience</span>
+                            <span>2-3 years experience</span>
                           )}
                           {job.experienceRequired === "ThreeToFive" && (
-                            <span>&lt; 3-5 years experience</span>
+                            <span>3-5 years experience</span>
                           )}
                           {job.experienceRequired === "FivePlus" && (
-                            <span>&lt; 5+ years experience</span>
+                            <span>5+ years experience</span>
                           )}
                           {job.experienceRequired === "TenPlus" && (
-                            <span>&lt; 10+ years experience</span>
+                            <span>10+ years experience</span>
                           )}
                         </span>
                         <span className="font-size-sm text-muted mb-0 d-block">

@@ -1,8 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { isLoaded, useFirestoreConnect } from "react-redux-firebase";
 
-export default function Job() {
-  const job = {};
+const jobsQuery = {
+  collection: "jobs",
+  limitTo: 100,
+};
+
+export default function Job(...args) {
+  const { jobId } = useParams();
+
+  useFirestoreConnect(() => [jobsQuery]);
+
+  const job = useSelector(({ firestore: { data } }) => {
+    return data.jobs && data.jobs[jobId];
+  });
+
+  if (!isLoaded(job)) {
+    return (
+      <section className="pt-6 pt-md-8">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-10 col-lg-8 text-center">
+              <p>Loading...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="pt-5 pt-md-11">
@@ -10,7 +37,7 @@ export default function Job() {
         <div className="row align-items-center">
           <div className="col-12 col-md">
             <Link
-              href="/jobs"
+              to="/jobs"
               className="font-weight-bold font-size-sm text-decoration-none mb-3"
             >
               All listings
@@ -28,21 +55,24 @@ export default function Job() {
 
             <div className="mb-3">
               {job.skills.map((skill) => (
-                <span className="badge badge-primary-soft mr-1">
+                <span
+                  key={skill.display}
+                  className="badge badge-primary-soft mr-1"
+                >
                   {skill.display}
                 </span>
               ))}
             </div>
           </div>
           <div className="col-auto">
-            <Link
+            <a
               href={job.whereToApply}
               target="_blank"
               rel="nofollow noopener"
               className="btn btn-primary"
             >
               Go to job and apply
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -69,34 +99,33 @@ export default function Job() {
                     {job.jobIs === "both" && "Remote & On Site"}
                   </li>
                   <li>
-                    {job.rateFrom} to
-                    {job.rateTo} per
-                    {job.frequency}
+                    &pound;{job.rateFrom} to &pound;{job.rateTo} per{" "}
+                    {job.frequency.toLowerCase()}
                   </li>
                   <li>
                     {job.experienceRequired === "OneYearOrLess" && (
                       <span>&lt; 1 year experience</span>
                     )}
                     {job.experienceRequired === "OneToTwo" && (
-                      <span>&lt; 1-2 years experience</span>
+                      <span>1-2 years experience</span>
                     )}
                     {job.experienceRequired === "TwoToThree" && (
-                      <span>&lt; 2-3 years experience</span>
+                      <span>2-3 years experience</span>
                     )}
                     {job.experienceRequired === "ThreeToFive" && (
-                      <span>&lt; 3-5 years experience</span>
+                      <span>3-5 years experience</span>
                     )}
                     {job.experienceRequired === "FivePlus" && (
-                      <span>&lt; 5+ years experience</span>
+                      <span>5+ years experience</span>
                     )}
                     {job.experienceRequired === "TenPlus" && (
-                      <span>&lt; 10+ years experience</span>
+                      <span>10+ years experience</span>
                     )}
                   </li>
                 </ul>
 
                 <Link
-                  href="/post-a-job"
+                  to="/post-a-job"
                   className="font-weight-bold font-size-sm text-decoration-none"
                 >
                   Post a job
@@ -114,7 +143,7 @@ export default function Job() {
                 </p>
 
                 <Link
-                  href="/post-a-job"
+                  to="/post-a-job"
                   className="font-weight-bold font-size-sm text-decoration-none"
                 >
                   Post a job
@@ -126,13 +155,13 @@ export default function Job() {
         <div className="row">
           <div className="col-12">
             <div className="mt-5">
-              <Link
+              <a
                 href={job.whereToApply}
                 target="_blank"
                 className="btn btn-primary"
               >
                 Go to job and apply
-              </Link>
+              </a>
             </div>
           </div>
         </div>
