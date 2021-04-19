@@ -13,7 +13,17 @@ const jobsQuery = {
 const LatestPosts = () => {
   useFirestoreConnect(() => [jobsQuery]);
 
-  const jobs = useSelector(({ firestore: { ordered } }) => ordered.jobs);
+  const jobs = useSelector(({ firestore: { ordered } }) =>
+    (ordered.jobs || []).sort((a, b) => {
+      if (a.created < b.created) {
+        return 1;
+      }
+      if (a.created > b.created) {
+        return -1;
+      }
+      return 0;
+    })
+  );
 
   if (!isLoaded(jobs)) {
     return (

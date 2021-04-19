@@ -6,12 +6,23 @@ import { useFirestoreConnect, isLoaded } from "react-redux-firebase";
 const jobsQuery = {
   collection: "jobs",
   limitTo: 100,
+  orderByChild: "created",
 };
 
 export default function Jobs() {
   useFirestoreConnect(() => [jobsQuery]);
 
-  const jobs = useSelector(({ firestore: { ordered } }) => ordered.jobs);
+  const jobs = useSelector(({ firestore: { ordered } }) =>
+    (ordered.jobs || []).sort((a, b) => {
+      if (a.created < b.created) {
+        return 1;
+      }
+      if (a.created > b.created) {
+        return -1;
+      }
+      return 0;
+    })
+  );
 
   if (!isLoaded(jobs)) {
     return (
