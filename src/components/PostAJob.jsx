@@ -26,7 +26,6 @@ const PostAJob = () => {
       jobDescription: `<p>A client of mine are currently looking for a full stack developer to help them through this tough period and complete a specific project. Require someone with experience of .Net (.Net Core) and React.js.</p><p><strong>Essential Skills:</strong></p><ul><li><strong>C#/.Net</strong></li><li><strong>React.js experience</strong></li><li><strong>.Net Core</strong></li><li><strong>Rest APIs</strong></li><li><strong>SQL Server</strong></li></ul><p>Please submit CVs and daily rates ASAP to be considered.&nbsp;If you know anybody else that maybe of interest, then please do feel free to share this.</p>`,
     };
 
-    debugger;
     await firestore.collection("jobs").add(formData);
     history.push("/jobs");
   };

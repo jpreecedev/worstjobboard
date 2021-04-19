@@ -68,7 +68,7 @@ export default function Job(...args) {
             <a
               href={job.whereToApply}
               target="_blank"
-              rel="nofollow noopener"
+              rel="nofollow noopener noreferrer"
               className="btn btn-primary"
             >
               Go to job and apply
@@ -158,6 +158,7 @@ export default function Job(...args) {
               <a
                 href={job.whereToApply}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-primary"
               >
                 Go to job and apply

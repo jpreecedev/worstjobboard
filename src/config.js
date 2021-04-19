@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 export const firebase = {
   apiKey: "AIzaSyACwfVY_GaqRR8R_Q47vKvNtUeqc0iiUhY",
   authDomain: "outsideir35jobs-272511.firebaseapp.com",
